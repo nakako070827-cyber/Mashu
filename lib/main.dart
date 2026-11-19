@@ -1,45 +1,97 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '宮崎のおすすめスポット',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: SpotPage());
+  }
+}
+
+class SpotPage extends StatefulWidget {
+  @override
+  State<SpotPage> createState() => _SpotPageState();
+}
+
+class _SpotPageState extends State<SpotPage> {
+  int likes = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    String message = 'いいね $likes';
+    Color textColor;
+
+    if (likes == 0) {
+      textColor = Colors.transparent;
+    } else if (likes > 0 && likes < 10) {
+      textColor = Colors.black;
+    } else if (likes >= 10 && likes < 20) {
+      textColor = Colors.red;
+    } else {
+      textColor = Colors.amber;
+    }
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '宮崎のおすすめスポット',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.orange,
               ),
-              SizedBox(height: 20),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  'https://picsum.photos/300/200',
-                  width: 300,
-                  height: 200,
-                  fit: BoxFit.cover,
-                ),
+            ),
+            SizedBox(height: 20),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                'https://picsum.photos/300/200',
+                width: 300,
+                height: 200,
+                fit: BoxFit.cover,
               ),
-              ElevatedButton(onPressed: () {}, child: Text('詳しく見る')),
-              SizedBox(height: 20),
-              SizedBox(width: 10),
-              Padding(
-                padding: EdgeInsets.all(16),
-                child: Text(
-                  '青島神社・高千穂峡・サンメッセ日南',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'いいね $likes',
+              style: TextStyle(fontSize: 20, color: textColor),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  likes = likes + 1;
+                });
+              },
+              child: Text('いいね'),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  if (likes > 0) {
+                    likes = likes - 1;
+                  }
+                });
+              },
+              child: Text('取り消し'),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  likes = 0;
+                });
+              },
+              child: Text('リセット'),
+            ),
+          ],
         ),
       ),
-    ),
-  );
-}
+    );
+  }
+} //(^_^)
