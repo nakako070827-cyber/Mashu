@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '高千穂峡_中武昊暉.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,13 +51,27 @@ class _SpotPageState extends State<SpotPage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                'https://picsum.photos/300/200',
+                'https://www.kanko-miyazaki.jp/storage/tourism_attractions/1001/responsive_images/3APEmDD9GHUnajjL5blMszDHqb9TPVtnWhco4ZWd__1800_1200.jpg',
                 width: 300,
                 height: 200,
                 fit: BoxFit.cover,
               ),
             ),
+
             SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TakachihokyoPage()),
+                );
+              },
+              child: Text('２つ目のおすすめスポットへ'),
+            ),
+
+            SizedBox(height: 20),
+
             Text(
               'いいね $likes',
               style: TextStyle(fontSize: 20, color: textColor),
